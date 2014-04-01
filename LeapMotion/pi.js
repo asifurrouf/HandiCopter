@@ -28,10 +28,29 @@ function write(pin_num) {
 }
 
 function closePins() {
+	console.log("closePins");
     gpio.destroy(function() {
         console.log('All pins unexported');
-        return process.exit(0);
     });
 }
 
 server.bind(PORT, HOST);
+
+process.stdin.resume();//so the program will not close instantly
+
+function exitHandler(options, err) {
+    if (options.cleanup) {
+    	closePins();
+    }
+    if (err) console.log(err.stack);
+    if (options.exit) process.exit();
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, {exit:true, cleanup:true}));
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
