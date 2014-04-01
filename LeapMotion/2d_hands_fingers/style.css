@@ -1,3 +1,8 @@
+div {
+	display: inline;
+	margin-right: 20%;
+}
+
 #canvas
 {
 	width: 100%;
