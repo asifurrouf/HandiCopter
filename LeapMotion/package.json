@@ -1,0 +1,21 @@
+{
+  "name": "LeapChopper",
+  "version": "0.0.1",
+  "description": "Leap Motion Controled Helicopter",
+  "main": "script.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idofishler/LeapChopper"
+  },
+  "author": "SAP IMS innojam",
+  "dependencies": {
+    "leapjs": "0.4.3"
+  },
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/idofishler/LeapChopper/issues"
+  }
+}
