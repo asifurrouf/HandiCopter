@@ -12,7 +12,8 @@
   },
   "author": "SAP IMS innojam",
   "dependencies": {
-    "leapjs": "0.4.3"
+    "leapjs": "0.4.3",
+    "rpi-gpio": "0.0.4"
   },
   "license": "BSD-2-Clause",
   "bugs": {

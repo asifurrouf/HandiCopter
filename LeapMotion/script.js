@@ -1,10 +1,14 @@
 require('leapjs/template/entry');
+var dgram = require('dgram');
 
+var PORT = 33333;
+var HOST = '127.0.0.1';
 var MAX_PITCH = 5; // 
 var MAX_ROLL = 5; // using hand.roll()
 var MAX_THRUST = 10; // y of avg fingers and hand.
 
 var controller = new Leap.Controller();
+var udp_client = dgram.createSocket('udp4');
 
 function onControllerConnect() {
 
@@ -76,19 +80,14 @@ function getPitch(hand) {
 }
 
 function writeChopperComamnds(thrust, roll, pitch) {
-	console.log('Thrust:' + thrust + ', Roll: ' + roll + ', Pitch: ' + pitch);
-}
+	var debug_msg = 'Thrust:' + thrust + ', Roll: ' + roll + ', Pitch: ' + pitch;
+	//console.log(debug_msg);
 
-function writeThrust(thrust) {
-	console.log('Thrust: ' + thrust);
-}
-
-function writeRoll(roll) {
-	console.log('Roll: ' + roll);
-}
-
-function writePitch(pitch) {
-	console.log('Pitch: ' + pitch);
+	var buf = new Buffer(debug_msg);
+	udp_client.send(buf, 0, buf.length, PORT, HOST, function(err, bytes) {
+		if (err) throw err;
+		console.log('UDP message (' + debug_msg + ') sent to ' + HOST + ':' + PORT);
+	});
 }
 
 controller.on('connect', onControllerConnect);
@@ -132,10 +131,6 @@ controller.on('frame', function(frame) {
 		var roll = getRoll(hand);
 		var pitch = getPitch(hand);
 		writeChopperComamnds(thrust, roll, pitch);
-		// writeThrust(thrust);
-		// writeRoll(roll);
-		// writePitch(pitch);
-
 	}
 });
 
