@@ -83,8 +83,14 @@ function writeChopperComamnds(thrust, roll, pitch) {
 	var debug_msg = 'Thrust:' + thrust + ', Roll: ' + roll + ', Pitch: ' + pitch;
 	//console.log(debug_msg);
 
-	var buf = new Buffer(debug_msg);
-	udp_client.send(buf, 0, buf.length, PORT, HOST, function(err, bytes) {
+	// var debug = new Buffer(debug_msg);
+	// udp_client.send(debug, 0, debug.length, PORT, HOST, function(err, bytes) {
+	// 	if (err) throw err;
+	// 	console.log('UDP message (' + debug_msg + ') sent to ' + HOST + ':' + PORT);
+	// });
+	
+	var data = new Buffer([thrust, roll, pitch]);
+	udp_client.send(data, 0, data.length, PORT, HOST, function(err, bytes) {
 		if (err) throw err;
 		console.log('UDP message (' + debug_msg + ') sent to ' + HOST + ':' + PORT);
 	});
