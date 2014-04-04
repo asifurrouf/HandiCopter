@@ -2,7 +2,7 @@
   "name": "LeapChopper",
   "version": "0.0.1",
   "description": "Leap Motion Controled Helicopter",
-  "main": "script.js",
+  "main": "leap.js",
   "scripts": {
     "test": "test"
   },
